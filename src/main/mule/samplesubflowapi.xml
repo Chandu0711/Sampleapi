@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="55aa5bc2-7423-44fa-b081-fbc7ec7a6b4c" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="samplesubflowapi" doc:id="f7fe2497-0b04-4c02-b81e-5e7d0ac8b6b6" >
+		<http:listener doc:name="Listener" doc:id="b9dbaabf-f46f-4cd7-b0a9-2a3108f286d5" config-ref="HTTP_Listener_config" path="/sample"/>
+		<logger level="WARN" doc:name="Logger" doc:id="f214cfb3-f8dd-4f2f-a303-9bf6d64608f3" message='#["hello world api is successful"]'/>
+		<logger level="INFO" doc:name="Logger" doc:id="544f5b9f-1a1c-4cb8-b874-a87c66eb388c" message='#["next printing statement"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="b1eeda19-5dd2-47a5-b16e-3780d6044fb6" name="samplesubflowapisubflow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c8e03737-a976-4ac3-85cb-e9e11baafe6a" message='#["from subflow to flow"]'/>
+	</flow>
+	<sub-flow name="samplesubflowapisubflow" doc:id="22828c01-81ec-4281-979f-5ed8ff9c2a95" >
+		<logger level="INFO" doc:name="Logger" doc:id="ed909a3a-8d65-448d-8088-fb72c4660d51" message='#["sub flow"]'/>
+	</sub-flow>
+</mule>
